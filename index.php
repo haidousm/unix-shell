@@ -9,6 +9,15 @@
 
 <body>
     <h1>Hello!</h1>
+
+    <?php
+    $output = NULL;
+    exec('demo-shell "ls -al"', $output);
+    foreach ($output as $line) {
+        echo "<p>$line</p>";
+    }
+
+    ?>
 </body>
 
 </html>

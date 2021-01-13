@@ -39,15 +39,14 @@ void executeChainedCommands(int n, struct command *cmds);
 int main(int argc, char **argv) {
   char cmdsInput[MAX_CMD_SIZE];
 
-  while (1) {
-    promptCommand();
-
-    if (fgets(cmdsInput, MAX_CMD_SIZE, stdin) > 0) {
-      saveCommand(cmdsInput);
-      executeCommands(cmdsInput);
-    }
+  promptCommand();
+  if (argc < 2) {
+    return 1;
   }
-  return 0;
+
+  strcpy(cmdsInput, argv[1]);
+  saveCommand(cmdsInput);
+  executeCommands(cmdsInput);
 }
 
 void promptCommand() {
