@@ -12,14 +12,30 @@
             body {
                 background-color: black;
             }
-            .input-container {
-                background-color: black;
+            .terminal-container {
+                background-color: rgb(30, 30, 30);
+                width: 500px;
+                height: 400px;
+                margin: 0 auto;
+                margin-top: 100px;
+                border: 1px solid rgb(71, 71, 71);
+                border-radius: 5px;
+                padding: 5px 5px;
                 color: white;
+                overflow: auto;
+            }
+
+            .output-container {
+                color: inherit;
+            }
+
+            .input-container {
+                color: inherit;
                 width: 100%;
             }
             .cmd-input {
                 border: none;
-                background-color: black;
+                background-color: inherit;
                 color: white;
             }
 
@@ -30,17 +46,19 @@
     </head>
 
     <body>
-        <div
-            class="output-container"
-            style="background-color: black; color: white"
-        >
-            <br />
-        </div>
-        <div class="input-container">
-            <label for="cmd-input">
-                moussa@Moussas-MacBook-Pro unix-shell $
-                <input type="text" name="cmd-input" class="cmd-input" />
-            </label>
+        <div class="terminal-container">
+            <div class="output-container"></div>
+            <div class="input-container">
+                <label for="cmd-input">
+                    moussa@Moussas-MacBook-Pro unix-shell $
+                    <input
+                        type="text"
+                        name="cmd-input"
+                        class="cmd-input"
+                        value="▋"
+                    />
+                </label>
+            </div>
         </div>
 
         <script>
@@ -51,7 +69,7 @@
                         shellOutputLines = JSON.parse(
                             "[" + this.response + "]"
                         );
-                        printResponse(shellOutputLines);
+                        printResponse(cmd, shellOutputLines);
                     }
                 };
                 xhttp.open("POST", "handle_request.php", true);
@@ -59,10 +77,17 @@
                     "Content-type",
                     "application/x-www-form-urlencoded"
                 );
-                xhttp.send("cmd=" + cmd);
+                formattedCmd = encodeURIComponent(cmd);
+                xhttp.send("cmd=" + formattedCmd);
             };
 
-            const printResponse = (shellOutputLines) => {
+            const printResponse = (cmd, shellOutputLines) => {
+                const pTag = document.createElement("p");
+                pTag.innerHTML =
+                    " moussa@Moussas-MacBook-Pro unix-shell $ " + cmd;
+                document
+                    .getElementsByClassName("output-container")[0]
+                    .appendChild(pTag);
                 for (var i = 0; i < shellOutputLines.length; i++) {
                     const pTag = document.createElement("p");
                     pTag.innerHTML = shellOutputLines[i];
@@ -76,10 +101,25 @@
                 e
             ) {
                 if (e.key === "Enter" || e.keyCode === 13) {
-                    const shellOutput = cmdSubmitted(e.target.value);
+                    updateScroll();
+                    let cmd = e.target.value;
+                    if (cmd == "clear") {
+                        document.getElementsByClassName(
+                            "output-container"
+                        )[0].innerHTML = "";
+                    } else {
+                        cmdSubmitted(cmd);
+                    }
                     e.target.value = "";
                 }
             };
+
+            function updateScroll() {
+                var element = document.getElementsByClassName(
+                    "terminal-container"
+                )[0];
+                element.scrollTop = element.scrollHeight;
+            }
         </script>
     </body>
 </html>
