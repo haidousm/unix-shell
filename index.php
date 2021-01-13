@@ -9,15 +9,23 @@
 
 <body>
     <h1>Hello!</h1>
+    <input type="text" name="cmd-input" id="cmd-input">
+    <script>
+        const cmdSubmitted = (cmd) => {
 
-    <?php
-    $output = NULL;
-    exec('demo-shell "ls -al"', $output);
-    foreach ($output as $line) {
-        echo "<p>$line</p>";
-    }
+            var xhttp = new XMLHttpRequest();
+            xhttp.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    console.log(this.response);
+                }
+            };
+            xhttp.open("POST", "handle_request.php", true);
+            xhttp.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            xhttp.send("cmd=" + cmd);
+        }
 
-    ?>
+        cmdSubmitted("hello");
+    </script>
 </body>
 
 </html>
