@@ -4,6 +4,7 @@
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <title>Unix Shell</title>
+
         <style>
             * {
                 padding: 0px;
@@ -51,75 +52,10 @@
             <div class="input-container">
                 <label for="cmd-input">
                     moussa@Moussas-MacBook-Pro unix-shell $
-                    <input
-                        type="text"
-                        name="cmd-input"
-                        class="cmd-input"
-                        value="▋"
-                    />
+                    <input type="text" name="cmd-input" class="cmd-input" />
                 </label>
             </div>
         </div>
-
-        <script>
-            const cmdSubmitted = (cmd) => {
-                var xhttp = new XMLHttpRequest();
-                xhttp.onreadystatechange = function () {
-                    if (this.readyState == 4 && this.status == 200) {
-                        shellOutputLines = JSON.parse(
-                            "[" + this.response + "]"
-                        );
-                        printResponse(cmd, shellOutputLines);
-                    }
-                };
-                xhttp.open("POST", "handle_request.php", true);
-                xhttp.setRequestHeader(
-                    "Content-type",
-                    "application/x-www-form-urlencoded"
-                );
-                formattedCmd = encodeURIComponent(cmd);
-                xhttp.send("cmd=" + formattedCmd);
-            };
-
-            const printResponse = (cmd, shellOutputLines) => {
-                const pTag = document.createElement("p");
-                pTag.innerHTML =
-                    " moussa@Moussas-MacBook-Pro unix-shell $ " + cmd;
-                document
-                    .getElementsByClassName("output-container")[0]
-                    .appendChild(pTag);
-                for (var i = 0; i < shellOutputLines.length; i++) {
-                    const pTag = document.createElement("p");
-                    pTag.innerHTML = shellOutputLines[i];
-                    document
-                        .getElementsByClassName("output-container")[0]
-                        .appendChild(pTag);
-                }
-            };
-
-            document.getElementsByClassName("cmd-input")[0].onkeyup = function (
-                e
-            ) {
-                if (e.key === "Enter" || e.keyCode === 13) {
-                    updateScroll();
-                    let cmd = e.target.value;
-                    if (cmd == "clear") {
-                        document.getElementsByClassName(
-                            "output-container"
-                        )[0].innerHTML = "";
-                    } else {
-                        cmdSubmitted(cmd);
-                    }
-                    e.target.value = "";
-                }
-            };
-
-            function updateScroll() {
-                var element = document.getElementsByClassName(
-                    "terminal-container"
-                )[0];
-                element.scrollTop = element.scrollHeight;
-            }
-        </script>
+        <script src="index.js"></script>
     </body>
 </html>

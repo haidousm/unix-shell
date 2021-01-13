@@ -45,7 +45,7 @@ int main(int argc, char **argv) {
   }
 
   strcpy(cmdsInput, argv[1]);
-  saveCommand(cmdsInput);
+  // saveCommand(cmdsInput);
   executeCommands(cmdsInput);
 }
 
