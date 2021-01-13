@@ -4,10 +4,19 @@
 if (isset($_POST["cmd"])) {
 
     $cmd = $_POST["cmd"];
-    echo $cmd;
-    // $output = NULL;
-    // exec('demo-shell "ls -al | wc -l"', $output);
-    // foreach ($output as $line) {
-    //     echo "<p>$line</p>";
-    // }
+
+    $output = NULL;
+    exec('demo-shell "' . $cmd . '"', $output);
+    $res = '"';
+    foreach ($output as $key => $line) {
+        if ($key == 0) {
+            $res .=  $line . '"';
+        } else {
+
+            $res .= ',"' . $line . '"';
+        }
+    }
+
+
+    echo $res;
 }

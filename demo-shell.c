@@ -39,7 +39,7 @@ void executeChainedCommands(int n, struct command *cmds);
 int main(int argc, char **argv) {
   char cmdsInput[MAX_CMD_SIZE];
 
-  promptCommand();
+  // promptCommand();
   if (argc < 2) {
     return 1;
   }
