@@ -31,7 +31,7 @@ document.getElementsByClassName("cmd-input")[0].onkeyup = function (e) {
     if (e.key === "Enter" || e.keyCode === 13) {
         let cmd = e.target.value;
         const pTag = document.createElement("p");
-        pTag.innerHTML = " moussa@Moussas-MacBook-Pro $ " + cmd;
+        pTag.innerHTML = "root@haidousm.com $ " + cmd;
         document
             .getElementsByClassName("output-container")[0]
             .appendChild(pTag);
