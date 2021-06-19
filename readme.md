@@ -1,4 +1,5 @@
-## Bash Shell Emulator
+## a Unix Shell
+## https://haidousm.com/shell/
 
 ### What can it do?
 
