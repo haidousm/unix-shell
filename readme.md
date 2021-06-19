@@ -1,4 +1,4 @@
-## a Unix Shell
+## a unix shell
 ## https://haidousm.com/shell/
 
 ### What can it do?
